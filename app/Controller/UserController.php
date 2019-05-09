@@ -49,13 +49,15 @@ class UserController extends AppController {
 	// 		'authenticate' => array('Basic')
 	// 	)
 	// );
-	var $components = array('Auth');
+	var $components = array('Auth','Session');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('add','create','index','update','rudUser');
 	}
 	public function login() {
+		$this->log("Something didn't work!");
+
 		if ($this->Auth->login()) {
 			return $this->redirect($this->Auth->redirect());
 		} else {
@@ -78,16 +80,41 @@ class UserController extends AppController {
 			}
 
 			if(!empty($data)){
+				$user = $this->User->findByUsername($data['username']);
+				if($user){
+					return $this->jsonResponseError('Username has in system');
+				}
 				//call the model's save function
 				$this->User->create();
-
+				// if(!$this->User->validates(array(
+				// 		'username' => array(
+				// 			'required' => array(
+				// 					'rule' => 'notBlank',
+				// 					'message' => 'A username is required'
+				// 			)
+				// 	),
+				// 	'password' => array(
+				// 			'required' => array(
+				// 					'rule' => 'notBlank',
+				// 					'message' => 'A password is required'
+				// 			)
+				// 	),
+				// 	'role_id' => array(
+				// 			'valid' => array(
+				// 					'rule' => array('inList', array(1, 2)),
+				// 					'message' => 'Please enter a valid role',
+				// 					'allowEmpty' => false
+				// 			)
+				// 	)))){
+				// 	return $this->jsonResponseError($this->User->validationErrors);
+				// }
 				$record =$this->User->save($data);
 				if($record){
 					unset($record['User']['password']);
 					$this->Auth->login($record);
 					return $this->jsonResponseSuccess($record['User']);
 				} else{
-					 return $this->jsonResponseError('Something was wrong');
+					 return $this->jsonResponseError($this->User->validationErrors);
 				}
 			}
 
@@ -98,9 +125,18 @@ class UserController extends AppController {
 	public function index() {
 		try{
 		//grab all Users and pass it to the view:
+		// unset($this->User->virtualFields['password']);
 
-		$list = $this->User->find('all');
-		$this->jsonResponseSuccess($list['User']);
+		$list = $this->User->find('all',
+			array(
+			 'contain' => array(
+					'User' => array(
+									'fields' => array('id','fullname','username','role_id')
+					),
+					'Mediafile'
+			))
+		);
+		return $this->jsonResponseSuccess($list);
 
 		//catch exception
 		}catch(Exception $e) {

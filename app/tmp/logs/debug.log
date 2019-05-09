@@ -1,0 +1,299 @@
+2019-05-09 13:11:02 Debug: Something did not work!
+2019-05-09 13:11:13 Debug: authController ->  me -> start!
+2019-05-09 13:11:13 Debug: 
+2019-05-09 13:12:08 Debug: authController ->  me -> start!
+2019-05-09 13:12:08 Debug: 
+2019-05-09 13:12:44 Debug: authController ->  me -> start!
+2019-05-09 13:12:44 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 13:18:15 Debug: Something did not work!
+2019-05-09 13:18:28 Debug: Something did not work!
+2019-05-09 13:18:31 Debug: authController ->  me -> start!
+2019-05-09 13:18:31 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 13:18:57 Debug: authController ->  me -> start!
+2019-05-09 13:18:57 Debug: 
+2019-05-09 13:20:05 Debug: authController ->  me -> start!
+2019-05-09 13:20:05 Debug: 
+2019-05-09 13:20:30 Debug: authController ->  me -> start!
+2019-05-09 13:20:30 Debug: 
+2019-05-09 13:21:04 Debug: authController ->  me -> start!
+2019-05-09 13:21:04 Debug: 
+2019-05-09 15:12:17 Debug: Something did not work!
+2019-05-09 15:12:46 Debug: Something did not work!
+2019-05-09 15:12:46 Debug: authController ->  me -> start!
+2019-05-09 15:12:46 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 15:16:42 Debug: authController ->  me -> start!
+2019-05-09 15:16:42 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 15:16:43 Debug: Array
+(
+    [0] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 1
+                    [title] => haha
+                    [content] => aaaa
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [1] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 2
+                    [title] => giao hang
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [2] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 3
+                    [title] => giao hang
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [3] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 4
+                    [title] => giao hangd
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [4] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 8
+                    [title] => adaddad
+                    [content] => ffffadadasdada
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [5] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 9
+                    [title] => xuan
+                    [content] => gg
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+)
+
+2019-05-09 15:16:43 Debug: authController ->  me -> start!
+2019-05-09 15:16:43 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 15:17:03 Debug: Something did not work!
+2019-05-09 15:17:09 Debug: Something did not work!
+2019-05-09 15:17:09 Debug: authController ->  me -> start!
+2019-05-09 15:17:09 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 15:17:11 Debug: Array
+(
+    [0] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 1
+                    [title] => haha
+                    [content] => aaaa
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [1] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 2
+                    [title] => giao hang
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [2] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 3
+                    [title] => giao hang
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [3] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 4
+                    [title] => giao hangd
+                    [content] => haha
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [4] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 8
+                    [title] => adaddad
+                    [content] => ffffadadasdada
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+    [5] => Array
+        (
+            [Post] => Array
+                (
+                    [id] => 9
+                    [title] => xuan
+                    [content] => gg
+                    [created_by] => 
+                    [created_at] => 
+                    [updated_at] => 
+                )
+
+        )
+
+)
+
+2019-05-09 15:17:11 Debug: authController ->  me -> start!
+2019-05-09 15:17:11 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+
+2019-05-09 15:17:41 Debug: authController ->  me -> start!
+2019-05-09 15:17:41 Debug: Array
+(
+    [id] => 2
+    [fullname] => bao linh
+    [email] => 
+    [created_at] => 
+    [updated_at] => 
+    [status] => 
+    [role_id] => 
+    [username] => linhtd
+)
+

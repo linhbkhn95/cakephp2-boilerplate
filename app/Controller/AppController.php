@@ -34,42 +34,100 @@ class AppController extends Controller {
 	public $components = array(
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'post', 'action' => 'create'),
-            'logoutRedirect' => array('controller' => 'post', 'action' => 'unAuthorize')
+			'loginAction' => array(
+				'controller' => 'auth',
+				'action' => 'login'
+
+			),
+			// 'userModel' => 'User',//sử dụng model User
+			// 'fields' => array('username' => 'username', 'password' => 'password'),
+            // 'loginRedirect' => array('controller' => 'post', 'action' => 'create'),
+            // 'logoutRedirect' => array('controller' => 'post', 'action' => 'unAuthorize')
 		),
 		// 'authenticate' => array(
         //     'Form' => array(
         //         'passwordHasher' => 'Blowfish'
         //     )
-        // ),
+		// ),
+		// 'authError' => 'Không thể truy cập',//báo lỗi
+		// 'authenticate' => array(
+        //     'Form' => array(
+        //         'fields' => array(
+        //             'username' => 'mon_champ_username_personnalise', // 'username' par défaut
+        //             'password' => 'mon_champ_password_personnalise'  // 'password' par défaut
+        //         )
+        //     )
+		// ),
         // 'authorize' => array('Controller') // Added this line
-    );
-	public function redirect($url, $status = null, $exit = true) {
-		if ($exit && $this->Components->enabled('Session') && $this->Session->started()) {
-			session_write_close();
+	);
+
+	// public function redirect($url, $status = null, $exit = true) {
+	// 	if ($exit && $this->Components->enabled('Session') && $this->Session->started()) {
+	// 		session_write_close();
+	// 	}
+	// 	// return $this->jsonResponseError('unAuthorize',401);
+
+	// 	// return parent::redirect($url, $status, $exit);
+	// }
+    public function beforeFilter() {
+		if(!isset($_SESSION))
+		{
+			session_start();
 		}
-		return parent::redirect($url, $status, $exit);
+		// if ($this->request->is('options')) {
+		// 	$this->setCorsHeaders();
+		// 	return $this->response;
+		// }
+		// $request = $this->request;
+		// $response = $this->response;
+		// if ($request->method() == 'OPTIONS')
+		// {
+		// 	$method = $request->header('Access-Control-Request-Method');
+		// 	$headers = $request->header('Access-Control-Request-Headers');
+		// 	$response->header('Access-Control-Allow-Headers', $headers);
+		// 	$response->header('Access-Control-Allow-Methods', empty($method) ? 'GET, POST, PUT, DELETE' : $method);
+		// 	$response->header('Access-Control-Allow-Credentials', 'true');
+		// 	$response->header('Access-Control-Max-Age', '86400');
+		// 	$response->send();
+		// 	die;
+		// }
+		if (empty($_SESSION['user'])&& ($this->request->params['controller'] != 'Auth'|| $this->request->params['action'] != 'login'));
+		// return $this->jsonResponseError('unAuthorize',401);
+
+
+        // $this->Auth->allow('index', 'view');
 	}
-    // public function beforeFilter() {
-    //     $this->Auth->allow('index', 'view');
-    // }
+	// public function beforeRender(event $event) {
+	// 	// $this->setCorsHeaders();
+	// }
+
+	// private function setCorsHeaders() {
+	// 	$this->response->cors($this->request)
+	// 		->allowOrigin(['*'])
+	// 		->allowMethods(['*'])
+	// 		->allowHeaders(['x-xsrf-token', 'Origin', 'Content-Type', 'X-Auth-Token'])
+	// 		->allowCredentials(['true'])
+	// 		->exposeHeaders(['Link'])
+	// 		->maxAge(300)
+	// 		->build();
+	// }
 	public function isAuthorized($user)
 	{
 		// Admin can access every action
-		if (isset($user['role']) && $user['role'] === 'admin') {
+		if (isset($user['role_id']) && $user['role_id'] === '1') {
 			return true;
 		}
 
 		// Default deny
-		return false;
+		// return $this->jsonResponseError('unAuthorize',401);
 	}
 	public function jsonAPIOutput($code, $message, $errors, $data, $status) {
 
-		Configure::write('debug', 0);
-		 $data = ['code' => $code, 'data' => $data,'errors' => $errors,'message' => $message];
-
+	    $data = ['code' => $code, 'data' => $data,'errors' => $errors,'message' => $message];
 		$this->response->type('json');
-		$this->response->header('Access-Control-Allow-Origin', '*');
+		// $this->response->header('Access-Control-Allow-Credentials', 'true');
+
+		// $this->response->header('Access-Control-Allow-Origin', '*');
 		$this->response->statusCode($status);
 		$this->response->body(json_encode($data));
 		$this->response->send();

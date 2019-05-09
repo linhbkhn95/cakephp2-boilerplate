@@ -34,7 +34,7 @@ class AuthController extends AppController {
  *
  * @var array
  */
-   public $uses = array();
+   public $uses = array('User');
 
 /**
  * Displays a view
@@ -49,20 +49,64 @@ class AuthController extends AppController {
 	// 		'authenticate' => array('Basic')
 	// 	)
 	// );
-	var $components = array('Auth');
+	var $components = array('Session');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add','create','index','update','login');
+
+		// $this->Auth->allow('add','create','index','logout','login','me');
+
+
+		// $this->header('Access-Control-Allow-Credentials', true);
+	}
+	public function checkPass($user,$password){
+		$storedHash = $user['User']['password'];
+		$newHash = Security::hash($password, 'blowfish', $storedHash);
+		if($storedHash == $newHash){
+				return true;
+		}else{
+				return false;
+		}
+	}
+	public function me(){
+		try{
+			$this->log("authController ->  me -> start!", 'debug');
+			$user = $_SESSION['user'];
+			$this->log( $user,'debug');
+            if($user)
+				return $this->jsonResponseSuccess($user);
+			else
+			    return $this->jsonResponseError('unAuthorize',401);
+
+		}catch(Exception $e) {
+			// echo 'Message: ' .$e->getMessage();
+			return $this->jsonResponseError('gg');
+
+		}
+
 	}
 	public function login() {
+		$this->log("Something did not work!", 'debug');
+
 		if ($this->request->is('post')) {
 			$data = $this->request->input('json_decode', true);
 			if(empty($data)){
 			   $data = $this->request->data;
-		    }
-			if ($this->Auth->login( $data)) {
-				return $this->jsonResponseSuccess('ok');
+			}
+			$user = $this->User->findByUsername($data['username']);
+
+			// return $this->jsonResponseSuccess($user);
+			if(!$user){
+				return $this->jsonResponseError('User has not in system');
+			}
+			if(!$this->checkPass($user,$data['password'])){
+				return $this->jsonResponseError('invalid password');
+			}
+			unset($user['User']['password']);
+			if ($this->Auth->login($user)) {
+				$this->Session->write('user', $user['User']);
+                $_SESSION['user'] = $user['User'];
+				return $this->jsonResponseSuccess($user['User']);
 			} else {
 				return $this->jsonResponseError('invalid username or password');
 			}
@@ -71,7 +115,17 @@ class AuthController extends AppController {
 	}
 
 	public function logout() {
-		$this->redirect($this->Auth->logout());
+		// return $this->jsonResponseError('invalid password');
+
+		if ($this->request->is('post')) {
+			if($this->Auth->logout()){
+				$_SESSION['user'] =null;
+				return $this->jsonResponseSuccess('Logout was successfull');
+
+			}
+		}
+		return $this->jsonResponseError('HTTP method not allowed');
+
 	}
 
 

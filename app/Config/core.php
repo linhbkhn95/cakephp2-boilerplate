@@ -215,7 +215,7 @@
  * the cake shell command: cake schema create Sessions
  *
  */
-$engine = 'File';
+$engine = 'Redis';
 $prefix = 'myapp_';
 $redisServer = 'localhost';
 $redisServerPort = '6379';
@@ -225,9 +225,9 @@ $redisServerPort = '6379';
 	// 	'duration' => $duration
 	// ));
 
-	Configure::write('Session', array(
-		'defaults' => 'php'
-	));
+	// Configure::write('Session', array(
+	// 	'defaults' => 'php'
+	// ));
 	// Configure::write('Session', array(
     //     'defaults' => 'cache',
     //     'timeout' => 100,
@@ -237,20 +237,20 @@ $redisServerPort = '6379';
     //         'config' => 'session'
     //     )
 	// ));
-	// Configure::write('Session', array(
-    //     'defaults'      => 'cache',
-    //     'cookie'        => 'A-Cookie-Name',
-    //     'timeout'       => 125,
-    //     'cookieTimeout' => 0,
-    //     'start'         => true,
-    //     'checkAgent'    => false,
-    //     'handler'       => array(
-    //         'config'    => 'session'
-    //     ),
-    //     'engine'        => $engine,
-    //     'server'        => $redisServer,
-    //     'port' 		=> $redisServerPort
-    // ));
+	Configure::write('Session', array(
+        'defaults'      => 'cache',
+        'cookie'        => 'A-Cookie-Name',
+        'timeout'       => 125,
+        'cookieTimeout' => 0,
+        'start'         => true,
+        'checkAgent'    => false,
+        'handler'       => array(
+            'config'    => 'session'
+        ),
+        'engine'        => $engine,
+        'server'        => $redisServer,
+        'port' 		=> $redisServerPort
+    ));
 
 /**
  * A random string used in security hashing methods.

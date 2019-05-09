@@ -30,10 +30,13 @@
 	Router::connect('/user/:id', array('controller' => 'user', 'action' => 'rudUser',));
 	Router::connect('/auth/register', array('controller' => 'user', 'action' => 'create',));
 	Router::connect('/auth/login', array('controller' => 'auth', 'action' => 'login',));
+	Router::connect('/auth/logout', array('controller' => 'auth', 'action' => 'logout',));
+	Router::connect('/auth/me', array('controller' => 'auth', 'action' => 'me',));
 
 	Router::connect('/user', array('controller' => 'user', 'action' => 'index',));
 
 	Router::connect('/posts', array('controller' => 'post', 'action' => 'index',));
+	Router::connect('/posts/list', array('controller' => 'post', 'action' => 'getListWithUser',));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

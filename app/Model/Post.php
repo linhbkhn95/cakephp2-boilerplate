@@ -25,4 +25,7 @@ class Post extends AppModel {
 	public $useTable = 'posts';
     public $name = 'Posts';
 	public $useType = 'posts';
+	public function isOwnedBy($post, $user) {
+		return $this->field('id', array('id' => $post, 'created_by' => $user)) !== false;
+	}
 }

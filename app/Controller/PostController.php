@@ -43,12 +43,28 @@ class PostController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-    var $components = array('Auth');
+    var $components = array('Session');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add','create','index','update','rudPost');
+		$this->Auth->allow('add','create','update','rudPost');
 	}
+	public function isAuthorized($user) {
+    // All registered users can add posts
+    if ($this->action === 'create') {
+        return true;
+    }
+
+    // The owner of a post can edit and delete it
+    if (in_array($this->action, array('rudPost'))) {
+        $postId = (int) $this->request->params['pass'][0];
+        if ($this->Post->isOwnedBy($postId, $user['id'])) {
+            return true;
+        }
+    }
+
+    return parent::isAuthorized($user);
+ }
 	public function create() {
 
 		if ($this->request->is('post')) {
@@ -81,14 +97,36 @@ class PostController extends AppController {
 		try{
 		//grab all posts and pass it to the view:
 
+
 		$list = $this->Post->find('all');
-		// $list = ['gg'];
-		$this->jsonResponseSuccess($list['Post']);
+		$this->log("PostController ->  index -> start!",$list, 'debug');
+		$this->log($list, 'debug');
+
+	  return 	$this->jsonResponseSuccess($list);
 
 		//catch exception
 		}catch(Exception $e) {
 			// echo 'Message: ' .$e->getMessage();
-			$this->jsonResponseError('gg');
+		 return 	$this->jsonResponseError($e);
+
+		}
+	}
+	public function getListWithUser() {
+		try{
+		//grab all posts and pass it to the view:
+			$user_id = $this->request->query['user_id'];
+			if ($this->request->is('post')) {
+				$list = $this->Post->findByCreatedBy($user_id);
+				return 	$this->jsonResponseSuccess($list);
+
+
+			}
+			return $this->jsonResponseError('HTTP method not allowed');
+
+			//catch exception
+		}catch(Exception $e) {
+			// echo 'Message: ' .$e->getMessage();
+		  return 	$this->jsonResponseError('gg');
 
 		}
 	}

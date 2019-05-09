@@ -24,9 +24,21 @@
 //enable cors origin
 
 header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Credentials, true');
 header('Access-Control-Allow-Methods: POST, GET, PUT, PATCH, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: *');
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+	// $method = $request->header('Access-Control-Request-Method');
+	// $headers = $request->header('Access-Control-Request-Headers');
+	// $response->header('Access-Control-Allow-Headers', $headers);
+	// $response->header('Access-Control-Allow-Methods', empty($method) ? 'GET, POST, PUT, DELETE' : $method);
+	// $response->header('Access-Control-Allow-Credentials', 'true');
+	// $response->header('Access-Control-Max-Age', '86400');
+	// $response->send();
+	// die;
+
     exit(0);
 }
 // Setup a 'default' cache configuration for use in the application.
